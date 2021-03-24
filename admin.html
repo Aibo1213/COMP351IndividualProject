@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <link rel="stylesheet" href="css/style.css">
+        <title>Individual Project</title>
+    </head>
+    <body>
+        <p id="demo1"></p>
+        <div class="quoteArea" id="inputArea" style="display: none;">            
+            <textarea class="quoteInput" id="quoteInput"></textarea>
+            <button onclick="save()">save to database</button>
+        </div>
+        <footer>
+            <button onclick="add()">Add new quote</button>
+        </footer>
+        
+        <script>
+            function add(){
+                document.getElementById('inputArea').style.display="block";
+            }
+            function save(){
+               let qInput = document.getElementById('quoteInput').value;
+               let data = "?content=" + qInput;
+               const xhttp = new XMLHttpRequest();
+                xhttp.open("GET","http://localhost:8890/"+ data ,true);                
+                xhttp.send();
+                xhttp.onreadystatechange = function(){
+                    
+                    if(this.readyState == 4 && this.status == 200){                        
+                        document.getElementById("demo1").innerHTML = this.responseText;
+                    }
+                };
+            }
+        </script>
+    </body>
+</html>
